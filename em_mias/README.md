@@ -36,7 +36,7 @@ pip install -r requirements.txt
 ### 2.1 使用仓库原生 MIMIR 方式（推荐）
 
 ```bash
-python -m em_mias.cli \
+python em_mias_cli.py \
   --mimir-name pythia \
   --dataset-split ngram_13_0.8/train \
   --target-model EleutherAI/pythia-2.8b \
@@ -47,7 +47,7 @@ python -m em_mias.cli \
 ### 2.2 使用 HF dataset（需要有 text/label 列）
 
 ```bash
-python -m em_mias.cli \
+python em_mias_cli.py \
   --dataset-name your_dataset_name \
   --dataset-split train \
   --target-model gpt2 \
@@ -75,7 +75,7 @@ python -m em_mias.cli \
 ### 3.1 使用本地数据
 
 ```bash
-python -m em_mias.cli \
+python em_mias_cli.py \
   --data-path path/to/data.jsonl \
   --target-model gpt2 \
   --reference-model distilgpt2 \
@@ -86,13 +86,15 @@ python -m em_mias.cli \
 ### 3.2 无数据时自动生成示例数据（仅调试）
 
 ```bash
-python -m em_mias.cli \
+python em_mias_cli.py \
   --generate-example-data \
   --target-model sshleifer/tiny-gpt2 \
   --reference-model distilgpt2 \
   --device cpu \
   --output-json outputs/em_mias_example_metrics.json
 ```
+
+> 如果你仍想用模块方式，也可以：`python -m em_mias.cli ...`（需在仓库根目录执行，或先把仓库根目录加入 `PYTHONPATH`）。
 
 ---
 

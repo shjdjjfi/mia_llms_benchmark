@@ -4,9 +4,6 @@ import argparse
 import json
 from pathlib import Path
 
-from .data import ensure_dataset
-from .features import FeatureConfig, FeatureExtractor
-
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="EM-MIAs style ensemble membership inference pipeline")
@@ -31,6 +28,8 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
+    from .data import ensure_dataset
+    from .features import FeatureConfig, FeatureExtractor
     from .model import TrainConfig, train_and_evaluate
     dataset_path, records, generated = ensure_dataset(
         dataset_path=args.data_path,

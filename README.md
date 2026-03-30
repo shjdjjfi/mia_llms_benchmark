@@ -85,7 +85,7 @@ Currently, this repo contains the following attacks, where comments or default p
 
 Finally, for document-level MIAs we refer to `./document_level/README.md`.
 
-For an EM-MIAs-style ensemble attack pipeline (LOSS + Reference + Min-k% + zlib + XGBoost), see `./em_mias/README.md`. 
+For an EM-MIAs-style ensemble attack pipeline (LOSS + Reference + Min-k% + zlib + XGBoost), see `./em_mias/README.md` (quick launcher: `python em_mias_cli.py ...`). 
 
 ## (4) References
 
