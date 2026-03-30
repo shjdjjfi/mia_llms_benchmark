@@ -6,12 +6,14 @@ from pathlib import Path
 
 from .data import ensure_dataset
 from .features import FeatureConfig, FeatureExtractor
-from .model import TrainConfig, train_and_evaluate
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="EM-MIAs style ensemble membership inference pipeline")
     parser.add_argument("--data-path", type=str, default=None, help="Path to .jsonl/.csv with columns: text,label")
+    parser.add_argument("--dataset-name", type=str, default=None, help="HF dataset name with text/label columns (repo-compatible)")
+    parser.add_argument("--dataset-split", type=str, default=None, help="Dataset split, e.g. train/test or ngram_13_0.8/train")
+    parser.add_argument("--mimir-name", type=str, default=None, help="MIMIR subset name, loaded via utils.load_mimir_dataset")
     parser.add_argument("--generate-example-data", action="store_true", help="Generate a tiny synthetic dataset when no data-path is provided")
     parser.add_argument("--generated-data-path", type=str, default="data/em_mias_example.jsonl")
 
@@ -29,8 +31,12 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
+    from .model import TrainConfig, train_and_evaluate
     dataset_path, records, generated = ensure_dataset(
         dataset_path=args.data_path,
+        dataset_name=args.dataset_name,
+        dataset_split=args.dataset_split,
+        mimir_name=args.mimir_name,
         generate_if_missing=args.generate_example_data,
         generated_path=args.generated_data_path,
         seed=args.seed,

@@ -25,7 +25,36 @@ pip install -r requirements.txt
 
 ---
 
-## 2. 数据格式
+## 2. 数据来源（优先使用仓库已有下载方式）
+
+本实现支持三种数据来源，推荐顺序如下：
+
+1. **仓库原生 MIMIR 加载方式**（`utils.load_mimir_dataset`）
+2. **HuggingFace dataset**（`datasets.load_dataset`）
+3. 本地 `jsonl/csv`
+
+### 2.1 使用仓库原生 MIMIR 方式（推荐）
+
+```bash
+python -m em_mias.cli \
+  --mimir-name pythia \
+  --dataset-split ngram_13_0.8/train \
+  --target-model EleutherAI/pythia-2.8b \
+  --reference-model EleutherAI/pythia-1.4b \
+  --device cpu
+```
+
+### 2.2 使用 HF dataset（需要有 text/label 列）
+
+```bash
+python -m em_mias.cli \
+  --dataset-name your_dataset_name \
+  --dataset-split train \
+  --target-model gpt2 \
+  --reference-model distilgpt2
+```
+
+### 2.3 本地文件格式
 
 支持 `jsonl` 或 `csv`，每条记录需包含：
 
@@ -43,7 +72,7 @@ pip install -r requirements.txt
 
 ## 3. 命令行运行
 
-### 3.1 使用自己的数据
+### 3.1 使用本地数据
 
 ```bash
 python -m em_mias.cli \
@@ -54,7 +83,7 @@ python -m em_mias.cli \
   --output-json outputs/em_mias_metrics.json
 ```
 
-### 3.2 无数据时自动生成示例数据
+### 3.2 无数据时自动生成示例数据（仅调试）
 
 ```bash
 python -m em_mias.cli \
@@ -108,4 +137,3 @@ python -m em_mias.cli \
   }
 }
 ```
-
