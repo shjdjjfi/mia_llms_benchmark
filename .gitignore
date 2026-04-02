@@ -7,3 +7,8 @@
 wandb/
 
 config.yaml
+# Generated conformal experiment artifacts
+results/
+figures/
+tables/*.csv
+tables/*.txt
